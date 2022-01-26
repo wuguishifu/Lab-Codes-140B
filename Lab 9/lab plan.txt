@@ -1,0 +1,10 @@
+For each of the following, please collect 3 replicates for every data point. Also, please record the flowrate and temperature for every data point in Experiment A and B. For experiment C, please record the ambient temperature.
+
+Experiment A:
+	Record steady-state pH of the product solution using titration for each [50, 100, 150, 200, 250] cm3/min flowrate following instructions labeled under Experiment A in the lab handout.
+
+Experiment B:
+	Record steady-state pH of the product solution using titration at each [25, 35, 45, 55] celsius different temperature following instructions labeled under Experiment B in the lab handout.
+
+Experiment C:
+	Follow instructions in lab handout, if possible collect samples every 1 minute instead.

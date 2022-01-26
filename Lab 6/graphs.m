@@ -81,13 +81,13 @@ hold on
 trials = [5, 7, 8, 9];
 colors = ["r", "g", "b", "k"];
 for i = 1:4
-    x = data_truncated.("t" + trials(i));
+    x = data_truncated.("t" + trials(i))(:, 1);
     plot(x, polyval(fitn.("t" + trials(i)).Coefficients, x), ...
-        ("-" + colors(i)), 'LineWidth', 1)
+        ("-" + colors(i)), 'LineWidth', 1);
 end
 xlabel('Time (s)')
 ylabel('Concentration ONP (mol L^{-1})')
-legend({'50 \muL', '30 \muL', '20 \muL', '10 \muL'}, ...
+leg = legend({'50 \muL', '30 \muL', '20 \muL', '10 \muL'}, ...
     "Location", "southeast");
 ylim([0, 2.5e-5])
 
