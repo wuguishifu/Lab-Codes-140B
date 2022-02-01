@@ -1,10 +1,27 @@
-For each of the following, please collect 3 replicates for every data point. Also, please record the flowrate and temperature for every data point in Experiment A and B. For experiment C, please record the ambient temperature.
-
-Experiment A:
-	Record steady-state pH of the product solution using titration for each [50, 100, 150, 200, 250] cm3/min flowrate following instructions labeled under Experiment A in the lab handout.
+For each of the following, please collect 3 replicates for every data point. For experiment C, please record the ambient temperature.
 
 Experiment B:
-	Record steady-state pH of the product solution using titration at each [25, 35, 45, 55] celsius different temperature following instructions labeled under Experiment B in the lab handout.
+	Record steady-state pH of the product solution using titration at each [25, 35, 45, 55] celsius different temperature following instructions labeled under Experiment B in the lab handout. For each trial, also please record the effluent temperature using the thermometer. Please set the flowmeter for flow A (NaOH, left) to 73, and the flowmeter for flow B (EtOAc, right) to 74.
 
 Experiment C:
-	Follow instructions in lab handout, if possible collect samples every 1 minute instead.
+	Follow instructions in lab handout, if possible collect samples every 1 minute instead by pipetting 10 mL of the solution into a different beaker preloaded with quenting solution using a glass pipette, and rinsing out the pipette with DI water between each trial.
+
+Please measure the inner diameter of the plastic tube and the tube length from where the metal pipes join together with the plastic tube to the output of the reactor where the sample is taken.
+
+
+For no conversion, half the HCl is left, 5 mL of NaOH to reach neutrilization point. Min titration vol needed is 5 mL, maximum is 10 mL.
+
+Flowrate calibration - connection lag as a source of error
+Meter 1 (Left, Flow A - NaOH):
+@150: 50.0 mL / 14.05 s = 3.56 mL/s = 213. mL/min
+ @75: 50.0 mL / 28.05 s = 1.78 mL/s = 107. mL/min
+ @73: 50.0 mL / 29.69 s = 1.68 mL/s = 101. mL/min
+ @73: 50.0 mL / 29.96 s = 1.67 mL/s = 100. mL/min
+ @73: 50.0 mL / 29.54 s = 1.69 mL/s = 102. mL/min
+
+Meter 2: (Right, Flow B - EtOAc):
+ @74: 50.0 mL / 30.03 s = 1.67 mL/s = 99.9 mL/min
+ @74: 50.0 mL / 29.82 s = 1.98 mL/s = 101. mL/min
+ @74: 50.0 mL / 29.89 s = 1.67 mL/s = 100. mL/min
+
+
