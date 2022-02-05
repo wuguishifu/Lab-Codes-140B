@@ -18,15 +18,15 @@ T = 25 + 273; % kelvin
 R = 8.31; % J/k*mol
 
 % literature values
-k_lit = 6.1; % 1/mol*min abu1994mathematical
+k_lit = 6.1e-3; % 1/mol*min abu1994mathematical
 E_lit = 43; % kJ/mol kirby1972kinetics
-A_lit = 1.05e3; % m^3/mol*s mukhtar2015chemical
+A_lit = 1.05e3; % L/mol*min mukhtar2015chemica
 
-% figure
-% plot(t, v_tit, 'b.')
-% xlabel('Time (min)')
-% ylabel('Volume of 0.1 M NaOH Required to Titrate (mL)')
-% 
+figure
+plot(t, v_tit, 'b.')
+xlabel('Time (min)')
+ylabel('Volume of 0.1 M NaOH Required to Titrate (mL)')
+
 % figure
 % hold on
 % fitn1 = polyfitn(t, c, 1);
@@ -63,7 +63,7 @@ figure()
 hold on
 for i=2:29
     data(1, i) = 1/3 * (c(i+1) + c(i) + c(i-1)); % c_avg
-    data(2, i) = (c(i+1) - c(i-1)) / 2; % r
+    data(2, i) = (c(i+1) - c(i-1)) / 2; % r M/min
 end
 
 mask = all(data >= 0);
@@ -71,10 +71,11 @@ data(:, mask) = [];
 fitcd = polyfitn(log(data(1, :)), log(-data(2, :)), 1);
 plot(log(data(1, :)), log(-data(2, :)), 'o')
 plot(log(data(1, :)), polyval(fitcd.Coefficients, log(data(1, :))))
-xlabel('C_{avg} (mol/L)')
-ylabel('Reaction Rate (mol/L\cdotmin)')
-title('Centered Difference Implementation')
-disp(fitcd.p)
+xlabel('ln(C_{avg})')
+ylabel('ln(r)')
+% title('Centered Difference Implementation')
+disp([fitcd.p, fitcd.Coefficients])
+legend('Data', 'Linear Regression')
 
 
 % Richardson's extrapolation implementation
@@ -82,32 +83,15 @@ figure
 hold on
 for i = 3:28
     data(1, i) = 0.2 * (c(i+2) + c(i+1) + c(i) + c(i-1) + c(i-2)); % c_avg
-    data(2, i) = (-c(i+2) + 8*c(i+1) - 8*c(i-1) + c(i-2))/12; % r
+    data(2, i) = (-c(i+2) + 8*c(i+1) - 8*c(i-1) + c(i-2))/12; % r M/min
 end
 mask = all(data >= 0);
 data(:, mask) = [];
 fitre = polyfitn(log(data(1, :)), log(-data(2, :)), 1);
 plot(log(data(1, :)), log(-data(2, :)), 'o')
 plot(log(data(1, :)), polyval(fitre.Coefficients, log(data(1, :))))
-xlabel('C_{avg} (mol/L)')
-ylabel('Reaction Rate (mol/L\cdotmin)')
-title('Richardson Extrapolation Implementation')
-disp(fitre.p)
-
-% lerp implementation
-figure
-hold on
-data = zeros(2, 30);
-for i = 3:28
-    data(1, i) = 0.2 * (c(i+2) + c(i+1) + c(i) + c(i-1) + c(i-2)); % c_avg
-    data(2, i) = lerp(1:5, c(i-2:i+2));
-end
-mask = all(data >= 0);
-data(:, mask) = [];
-fitle = polyfitn(log(data(1, :)), log(-data(2, :)), 1);
-plot(log(data(1, :)), log(-data(2, :)), 'o');
-plot(log(data(1, :)), polyval(fitle.Coefficients, log(data(1, :))))
-xlabel('C_{avg} (mol/L)')
-ylabel('Reaction Rate (mol/L\cdotmin)')
-title('Moving Lerp Implementation')
-disp(fitle.p)
+xlabel('ln(C_{avg})')
+ylabel('ln(r)')
+% title('Richardson Extrapolation Implementation')
+disp([fitre.p, fitre.Coefficients])
+legend('Data', 'Linear Regression')
