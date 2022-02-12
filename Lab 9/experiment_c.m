@@ -7,11 +7,7 @@ v_tit = [5.1, 5.3, 5.6, 5.9, 5.8, 5.9, 6.2, 6.4, 6.8, 6.8, 7.0, 7.1,...
          7.3, 7.5, 7.6, 7.5, 7.6, 7.7, 7.9, 8.1, 8.2, 8.5, 8.3, 8.2,...
          8.7, 8.6, 8.6, 8.7, 8.8, 9.0]; % mL NaOH
 c_tit = 0.1; % mol/L NaOH
-n_naoh = 250 / 1000 * 0.1; % mol
-
-c0 = n_naoh .* ones(1, 30); % initial concentration
-c = (10 - v_tit) ./ 1000 .* 0.1; % current concentration
-conversion = (c0 - c) ./ c;
+c = (10 - v_tit) ./ 1000 .* 0.1 / (v_sample/1000); % current concentration
 
 % apply k = Ae^{-E/RT}
 T = 25 + 273; % kelvin

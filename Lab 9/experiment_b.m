@@ -41,27 +41,31 @@ naoh_in_std = avg_naoh ./ 10 ./ 1000 .* c_naoh .* ones(1, 4); % mol/min
 naoh_out_std = (10 - v_std) ./ 1000 .* 0.1; % mol/min
 conversion_std = (naoh_in_std - naoh_out_std) ./ naoh_in_std * 100;
 
-% figure(1)
-% errorbar(t_avg, conversion_avg, conversion_std, 'b.', 'MarkerSize', 20)
-% xlim([20, 60])
-% xlabel('Temperature (°C)')
-% ylabel('Conversion (%)')
-% 
-% figure(2)
-% fitn = polyfitn(t_avg, conversion_avg, 1);
-% xlim([20, 60])
-% plot(25:55, polyval(fitn.Coefficients, 25:55), '-b')
-% xlim([20, 60])
-% xlabel('Temperature (°C)')
-% ylabel('Conversion (%)')
-% fitn.Coefficients
-% fitn.p
+figure(1)
+hold on
+errorbar(t_avg, conversion_avg, conversion_std, 'b.', 'MarkerSize', 20)
+fitn = polyfitn(t_avg, conversion_avg, 1);
+plot(22:57, polyval(fitn.Coefficients, 22:57), '-r')
+xlim([20, 60])
+xlabel('Temperature (°C)')
+ylabel('Conversion (%)')
+legend({'Data', 'Linear Regression'}, 'Location', 'southeast')
+
+figure(2)
+fitn = polyfitn(t_avg, conversion_avg, 1);
+xlim([20, 60])
+plot(25:55, polyval(fitn.Coefficients, 25:55), '-b')
+xlim([20, 60])
+xlabel('Temperature (°C)')
+ylabel('Conversion (%)')
+fitn.Coefficients
+fitn.p
 
 tank_inner_diameter = 185. / 1000; % mm;
 tube_inner_diameter =  6.0 / 1000; % mm;
 num_coils = 36;
 tube_length = tank_inner_diameter * pi * 36; % m
-tube_area = pi * (tank_inner_diameter / 2)^2; % m^2
+tube_area = pi * (tube_inner_diameter/ 2)^2; % m^2
 tau = tube_length * tube_area ./ (200e-6) .* 60; % 1/min
 
 k_exp = (conversion_avg .* 0.01)./(1-conversion_avg .* 0.01)./tau./0.1;
@@ -87,10 +91,18 @@ k_lit = exp(1./temps_lit.*coeff_lit(1) + coeff_lit(2));
 
 figure()
 hold on
-plot(x, log(k_exp), 'b.', 'MarkerSize', 20)
-plot(x, log(k_lit), 'r.', 'MarkerSize', 20)
-legend('Experimental', 'Literature')
+plot(t_avg + 273, k_exp, 'b.', 'MarkerSize', 20)
+plot(t_avg + 273, k_lit, 'r.', 'MarkerSize', 20)
+legend({'Experimental', 'Literature'}, 'Location', 'SouthEast')
+xlabel('Temperature (K)')
+ylabel('Kinetic Rate Constant')
 
-R = 8.31; % J/k*mol
-E = -fit.Coefficients(1) * R;
-A = exp(fit.Coefficients(2))
+k_exp
+k_lit
+
+R = 0.00831; % kJ/k*mol
+E = -fit.Coefficients(1) * R
+A = exp(fit.Coefficients(2)) * 60
+
+percent_error = (k_exp-k_lit)./k_lit*100
+
