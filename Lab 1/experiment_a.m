@@ -17,13 +17,14 @@ c_e = (0.1 .* v_std) ./ 5;
 
 % concentration extract vs. initial concentration in wawter
 figure()
-plot(c_0, c_a, '.b', 'MarkerSize', 20);
+hold on
+errorbar(c_0, c_a, c_e, '.b', 'MarkerSize', 10);
 xlabel('Initial Concentration in Water (M)')
 ylabel('Concentration in Kerosene Extract (M)')
 
 % linear regression of previous graph
 fitn = fitlm(table(c_0', c_a'), 'Var2 ~ Var1', 'Intercept', false);
-figure()
+% figure()
 plot(c_0, polyval([fitn.Coefficients.Estimate, 0], c_0), '-b')
 xlabel('Initial Concentration in Water (M)')
 ylabel('Concentration in Kerosene Extract (M)')

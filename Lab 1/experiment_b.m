@@ -10,3 +10,12 @@ flowrates = 1./[
 
 f_avg = sum(flowrates(:, :))./3; % (L/s)
 f_std = std(flowrates(:, :)); % (L/s)
+
+fitn = polyfitn(speed, f_avg, 1);
+
+hold on
+errorbar(speed, f_avg, f_std, '.b')
+plot(speed, polyval(fitn.Coefficients, speed), '-r')
+legend({'Raw Data', 'Linear Regression'}, 'Location', 'NorthWest')
+xlabel('Controller Setting (%)')
+ylabel('Flowrate (L s^{-1})')
